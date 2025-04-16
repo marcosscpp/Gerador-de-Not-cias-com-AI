@@ -1,6 +1,6 @@
 import axios from "axios";
 // @ts-ignore
-const xml2js = require("xml2js");
+import xml2js from "xml2js";
 
 interface NewsItem {
   title: string;
