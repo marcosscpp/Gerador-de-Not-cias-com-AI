@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as xml2js from "xml2js";
+import xml2js from "xml2js";
 
 interface NewsItem {
   title: string;
