@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Clients {
+  id                     Int                     @id @default(autoincrement())
+  active                 Boolean                 @default(true) @db.TinyInt()
+  email                  String?                 @db.VarChar(90)
+  name                   String                  @db.VarChar(255)
+  createdAt              DateTime?               @db.Timestamp(0)
+  aiConfigurations       AiConfiguration[]
+  contentSources         ContentSource[]
+  wordpressConfigurations WordpressConfiguration[]
+}
+
+model AiConfiguration {
+  id            Int       @id @default(autoincrement())
+  clientId      Int?
+  apiKey        String    @db.VarChar(255)
+  basePrompt    String?   @db.VarChar(2000)
+  maxTokens     Int       @default(800)
+  model         String    @db.VarChar(30)
+  provider      String    @db.VarChar(30)
+  temperature   Float     @default(0.5)
+  maxCharacters Int?      @default(1500)
+  createdAt     DateTime? @db.Timestamp(0)
+  client        Clients?  @relation(fields: [clientId], references: [id])
+}
+
+enum AuthType {
+  none
+  basic
+  bearer
+  custom
+}
+
+enum SourceType {
+  rss
+  wordpress_api
+  custom_api
+}
+
+model ContentSource {
+  id          Int       @id @default(autoincrement())
+  clientId    Int?
+  category    String?   @db.VarChar(45)
+  url         String    @db.VarChar(255)
+  name        String    @db.VarChar(45)
+  createdAt   DateTime? @db.Timestamp(0)
+  authType    AuthType? @default(none)
+  authConfig  Json?
+  type        SourceType?
+  client      Clients?  @relation(fields: [clientId], references: [id])
+  newsAmount  Int?      @default(1)
+}
+
+enum PostStatus {
+  publish
+  pending
+  draft
+  future
+  private
+  trash
+  auto_draft @map("auto-draft")
+  inherit
+}
+
+model WordpressConfiguration {
+  id                Int        @id @default(autoincrement())
+  clientId          Int?
+  siteName          String     @db.VarChar(255)
+  siteUrl           String     @unique @db.VarChar(255)
+  username          String     @db.VarChar(50)
+  appPassword       String     @db.VarChar(100)
+  createdAt         DateTime?  @db.Timestamp(0)
+  defaultPostStatus PostStatus @default(publish)
+  client            Clients?   @relation(fields: [clientId], references: [id])
+}
