@@ -214,8 +214,9 @@ async function processClient(client: any): Promise<boolean> {
     );
 
     const rssExtractor = new RssExtractor();
+
     await Promise.allSettled(
-      dataSources.map((dataSource: any) =>
+      dataSources.map((dataSource) =>
         processDataSource(
           dataSource,
           rssExtractor,

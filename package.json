@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "npx tsx src/cron.ts",
-    "build": "yarn install && npx prisma generate && tsc"
+    "build": "yarn install && yarn add -D @types/xml2js && npx prisma generate && tsc --skipLibCheck",
+    "start": "node dist/cron.js"
   },
   "type": "module",
   "dependencies": {
