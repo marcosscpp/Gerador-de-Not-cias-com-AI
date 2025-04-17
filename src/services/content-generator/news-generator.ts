@@ -67,7 +67,7 @@ class NewsGenerator {
     this.basePrompt = options.basePrompt || this.basePrompt;
     this.newsAmount = options.newsAmount || 1;
     this.maxCharacters = options.maxCharacters || 1000;
-    this.batchSize = options.batchSize || 4;
+    this.batchSize = options.batchSize || 2;
 
     this.openai = new OpenAI({
       baseURL: this.providerUrl,
