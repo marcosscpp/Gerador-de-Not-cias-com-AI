@@ -263,12 +263,6 @@ class NewsGenerator {
       );
     }
 
-    if (parsedResponse.news.length !== this.newsAmount) {
-      console.warn(
-        `Número de notícias geradas (${parsedResponse.news.length}) difere do solicitado (${this.newsAmount})`
-      );
-    }
-
     parsedResponse.news.forEach((item, index) => {
       if (!item.title || !item.content) {
         console.warn(

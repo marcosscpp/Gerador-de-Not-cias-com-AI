@@ -1,5 +1,4 @@
 import axios from "axios";
-// @ts-ignore
 import xml2js from "xml2js";
 
 interface NewsItem {

@@ -1,13 +1,14 @@
 {
   "scripts": {
     "dev": "npx tsx src/cron.ts",
-    "build": "yarn install && yarn add -D @types/xml2js && npx prisma generate && tsc --skipLibCheck",
+    "build": "yarn install && npx prisma generate && tsc",
     "start": "node dist/cron.js"
   },
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "@prisma/client": "^6.6.0",
     "axios": "^1.8.4",
+    "module-alias": "^2.2.3",
     "openai": "^4.94.0",
     "prisma": "^6.6.0",
     "winston": "^3.17.0",
@@ -20,6 +21,15 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.2"
+  },
+  "_moduleAliases": {
+    "@": "dist",
+    "@config": "dist/config",
+    "@services": "dist/services",
+    "@database": "dist/database",
+    "@middlewares": "dist/middlewares",
+    "@utils": "dist/utils",
+    "@prisma": "dist/prisma"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

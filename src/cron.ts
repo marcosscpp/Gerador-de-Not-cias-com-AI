@@ -1,3 +1,5 @@
+import "module-alias/register";
+
 import RssExtractor from "@/services/content-source-extractors/rss-extractor";
 import NewsGenerator, {
   NewsItem,
@@ -95,11 +97,6 @@ async function processDataSource(
   clientStats: ClientStats
 ): Promise<boolean> {
   try {
-    loggerInfo.info(`Processando fonte: ${dataSource.name}`, {
-      sourceName: dataSource.name,
-      sourceUrl: dataSource.url,
-    });
-
     const news = (await retryOperation(() =>
       rssExtractor.extractNews(dataSource.url)
     )) as NewsItem[];
@@ -174,6 +171,7 @@ async function processClient(client: any): Promise<boolean> {
     });
 
     const dataSources = await DataSourceService.getByClientId(client.id);
+    console.log(dataSources)
     loggerInfo.info(
       `Encontradas ${dataSources.length} fontes de dados para processar`,
       {

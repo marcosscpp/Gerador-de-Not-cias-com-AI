@@ -191,9 +191,6 @@ class NewsGenerator {
         if (!parsedResponse.news || !Array.isArray(parsedResponse.news)) {
             throw new errors_1.ContentGenerationError("A resposta não contém um array de notícias válido");
         }
-        if (parsedResponse.news.length !== this.newsAmount) {
-            console.warn(`Número de notícias geradas (${parsedResponse.news.length}) difere do solicitado (${this.newsAmount})`);
-        }
         parsedResponse.news.forEach((item, index) => {
             if (!item.title || !item.content) {
                 console.warn(`Notícia ${index + 1} não contém todos os campos obrigatórios`);

@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("module-alias/register");
 const rss_extractor_1 = __importDefault(require("@/services/content-source-extractors/rss-extractor"));
 const news_generator_1 = __importDefault(require("@/services/content-generator/news-generator"));
 const clients_1 = __importDefault(require("@/services/database/clients"));
@@ -64,10 +65,6 @@ async function processNewsItem(newsItem, wpCreator, dataSource, clientStats) {
 }
 async function processDataSource(dataSource, rssExtractor, aiGenerator, wpCreator, clientStats) {
     try {
-        logger_1.loggerInfo.info(`Processando fonte: ${dataSource.name}`, {
-            sourceName: dataSource.name,
-            sourceUrl: dataSource.url,
-        });
         const news = (await retryOperation(() => rssExtractor.extractNews(dataSource.url)));
         logger_1.loggerInfo.info(`Extraídas ${news.length} notícias da fonte`, {
             sourceName: dataSource.name,
