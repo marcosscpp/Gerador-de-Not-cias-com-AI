@@ -171,7 +171,6 @@ async function processClient(client: any): Promise<boolean> {
     });
 
     const dataSources = await DataSourceService.getByClientId(client.id);
-    console.log(dataSources)
     loggerInfo.info(
       `Encontradas ${dataSources.length} fontes de dados para processar`,
       {
